@@ -1,0 +1,43 @@
+{% set name = "pycountry" %}
+{% set version = "22.3.5" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: b2163a246c585894d808f18783e19137cb70a0c18fb36748dc01fc6f109c1646
+
+build:
+  noarch: python
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+  run:
+    - python
+    - setuptools
+
+test:
+  imports:
+    - pycountry
+
+about:
+  home: "https://github.com/flyingcircusio/pycountry"
+  license: "GNU Lesser General Public v2 (LGPLv2)"
+  license_family: LGPL
+  license_file: 
+  summary: "ISO country, subdivision, language, currency and script definitions and their translations"
+  doc_url: 
+  dev_url: 
+
+extra:
+  only_lint:
+    - missing_source
+  recipe-maintainers:
+    - anaobi
