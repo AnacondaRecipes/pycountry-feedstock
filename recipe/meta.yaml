@@ -12,12 +12,13 @@ source:
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  skip: True  # [py<38] 
 
 requirements:
   host:
     - python
     - pip
-    - poetry-core
+    - poetry-core >=1.0.0
   run:
     - python
     - importlib-resources >5.12.0 # [py<39]
@@ -27,11 +28,13 @@ test:
     - pycountry
   requires:
     - pip
+    - pytest >7.1.3
   commands:
     - pip check
     - python -c "import pycountry; print(len(pycountry.countries))"
     - python -c "import pycountry; print(len(pycountry.languages))"
     - python -c "import pycountry; print(len(pycountry.currencies))"
+    - pytest --pyargs pycountry.tests.test_general
 
 about:
   home: https://github.com/flyingcircusio/pycountry
